@@ -1,4 +1,5 @@
 "use client"
+import { parseAsInteger, useQueryState } from "nuqs"
 import {
 	Pagination,
 	PaginationContent,
@@ -8,25 +9,14 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "@/components/ui/pagination"
-import { useState } from "react"
 
 export function PaginationUser() {
+	const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1))
 	const totalPages = 10
-	const [page, setPage] = useState(1)
 
-	const handlePageChange = (page: number) => {
-		setPage(page)
-	}
-
-	const handleNextPage = () => {
-		if (page < totalPages) {
-			setPage(page + 1)
-		}
-	}
-
-	const handlePreviousPage = () => {
-		if (page > 1) {
-			setPage(page - 1)
+	const handlePageChange = (newPage: number) => {
+		if (newPage >= 1 && newPage <= totalPages) {
+			setPage(newPage)
 		}
 	}
 
@@ -35,71 +25,74 @@ export function PaginationUser() {
 			<PaginationContent>
 				<PaginationItem>
 					<PaginationPrevious
-						onClick={handlePreviousPage}
+						onClick={() => handlePageChange(page - 1)}
 						className="cursor-pointer"
 					/>
 				</PaginationItem>
-				<PaginationItem className={`${page < 4 ? "hidden" : ""}`}>
-					<PaginationLink
-						onClick={() => handlePageChange(1)}
-						className="cursor-pointer"
-					>
-						1
-					</PaginationLink>
-				</PaginationItem>
-				<PaginationItem className={`${page < 4 ? "hidden" : ""}`}>
-					<PaginationEllipsis />
-				</PaginationItem>
-				<PaginationItem>
-					<PaginationLink
-						onClick={() => handlePageChange(page - 1)}
-						className={`${page <= 2 ? "hidden" : ""} cursor-pointer`}
-					>
-						{page - 2}
-					</PaginationLink>
-				</PaginationItem>
-				<PaginationItem>
-					<PaginationLink
-						onClick={() => handlePageChange(page - 1)}
-						className={`${page == 1 ? "hidden" : ""} cursor-pointer`}
-					>
-						{page - 1}
-					</PaginationLink>
-				</PaginationItem>
+				{page >= 4 && (
+					<>
+						<PaginationItem>
+							<PaginationLink
+								onClick={() => handlePageChange(1)}
+								className="cursor-pointer"
+							>
+								1
+							</PaginationLink>
+						</PaginationItem>
+						<PaginationItem>
+							<PaginationEllipsis />
+						</PaginationItem>
+					</>
+				)}
+				{[page - 2, page - 1].map(
+					(p) =>
+						p > 0 && (
+							<PaginationItem key={p}>
+								<PaginationLink
+									onClick={() => handlePageChange(p)}
+									className="cursor-pointer"
+								>
+									{p}
+								</PaginationLink>
+							</PaginationItem>
+						)
+				)}
 				<PaginationItem>
 					<PaginationLink isActive>{page}</PaginationLink>
 				</PaginationItem>
+				{[page + 1, page + 2].map(
+					(p) =>
+						p <= totalPages && (
+							<PaginationItem key={p}>
+								<PaginationLink
+									onClick={() => handlePageChange(p)}
+									className="cursor-pointer"
+								>
+									{p}
+								</PaginationLink>
+							</PaginationItem>
+						)
+				)}
+				{page <= totalPages - 3 && (
+					<>
+						<PaginationItem>
+							<PaginationEllipsis />
+						</PaginationItem>
+						<PaginationItem>
+							<PaginationLink
+								onClick={() => handlePageChange(totalPages)}
+								className="cursor-pointer"
+							>
+								{totalPages}
+							</PaginationLink>
+						</PaginationItem>
+					</>
+				)}
 				<PaginationItem>
-					<PaginationLink
+					<PaginationNext
 						onClick={() => handlePageChange(page + 1)}
-						className={`${page == totalPages ? "hidden" : ""} cursor-pointer`}
-					>
-						{page + 1}
-					</PaginationLink>
-				</PaginationItem>
-				<PaginationItem>
-					<PaginationLink
-						onClick={() => handlePageChange(page + 2)}
-						className={`${
-							page >= totalPages - 1 ? "hidden" : ""
-						} cursor-pointer`}
-					>
-						{page + 2}
-					</PaginationLink>
-				</PaginationItem>
-				<PaginationItem className={`${page >= totalPages - 2 ? "hidden" : ""}`}>
-					<PaginationEllipsis />
-				</PaginationItem>
-				<PaginationItem className={`${page >= totalPages - 2 ? "hidden" : ""}`}>
-					<PaginationLink
-						onClick={() => handlePageChange(10)}
 						className="cursor-pointer"
-					>
-						10
-					</PaginationLink>
-				</PaginationItem>
-				<PaginationItem>
-					<PaginationNext onClick={handleNextPage} className="cursor-pointer" />
+					/>
 				</PaginationItem>
 			</PaginationContent>
 		</Pagination>

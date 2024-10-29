@@ -1,4 +1,5 @@
 // import type { Metadata } from "next"
+import { NuqsAdapter } from "nuqs/adapters/next/app"
 import LayoutRoot from "@/components/fragments/LayoutRoot"
 import "./globals.css"
 
@@ -15,16 +16,11 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en" className="">
+		<html lang="en">
 			<body className={`antialiased w-full h-screen `}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
+				<NuqsAdapter>
 					<LayoutRoot>{children}</LayoutRoot>
-				</ThemeProvider>
+				</NuqsAdapter>
 			</body>
 		</html>
 	)

@@ -6,14 +6,6 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover"
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select"
-import {
 	Table,
 	TableBody,
 	TableCaption,
@@ -27,177 +19,87 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { PopoverComponentProps, User } from "@/types/users.type"
 import { UserRoundPen, UserSearch } from "lucide-react"
+import BadgeUserSelect from "../Select/BadgeUserSelect"
 
-const invoices = [
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "2",
-		username: "Ekanuraini",
-		fullname: "Wahyu Eka Nuraini",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-	{
-		id: "1",
-		username: "Dewangga67",
-		fullname: "Mohammad Dewangga Almahfuzhillah",
-		email: "dewanggamahfuz@gmail.com",
-		phone: "62082257943949",
-		status: false,
-		isVerified: false,
-		balance: 900000,
-		createdAt: new Date().toLocaleString(),
-	},
-]
+const PopoverBadge: React.FC<PopoverComponentProps> = ({
+	condition,
+	title1,
+	title2,
+}) => {
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<Badge
+					className="cursor-pointer"
+					variant={condition ? "default" : "destructive"}
+				>
+					{condition ? title1 : title2}
+				</Badge>
+			</PopoverTrigger>
+			<PopoverContent className="w-52">
+				<BadgeUserSelect title1={title1} title2={title2} />
+			</PopoverContent>
+		</Popover>
+	)
+}
 
-export function TableUser() {
+const PopoverDetail = ({ user }: { user: User }) => {
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<Button size={"icon"}>
+					<UserSearch />
+				</Button>
+			</PopoverTrigger>
+			<PopoverContent className="w-[600px]">
+				<div className="grid gap-4">
+					<h2 className="text-lg text-primary2 font-medium">Detail User</h2>
+					<Table>
+						<TableBody>
+							<TableRow>
+								<TableCell className="font-medium">ID</TableCell>
+								<TableCell>{user.id}</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">Fullname</TableCell>
+								<TableCell>{user.fullname}</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">Username</TableCell>
+								<TableCell>{user.username}</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">Email</TableCell>
+								<TableCell>{user.email}</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">Phone</TableCell>
+								<TableCell>{user.phone}</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">Balance</TableCell>
+								<TableCell>
+									{user.balance.toLocaleString("id-ID", {
+										style: "currency",
+										currency: "IDR",
+									})}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell className="font-medium">CreatedAt</TableCell>
+								<TableCell>{user.createdAt}</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</div>
+			</PopoverContent>
+		</Popover>
+	)
+}
+
+export function TableUser({ users }: { users: User[] }) {
 	return (
 		<Table>
 			<TableCaption className="bg-primary text-primary-foreground">
@@ -218,7 +120,7 @@ export function TableUser() {
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{invoices.map((user) => (
+				{users.map((user) => (
 					<TableRow key={user.id}>
 						<TableCell className="font-medium">{user.id}</TableCell>
 						<TableCell>{user.username}</TableCell>
@@ -231,137 +133,23 @@ export function TableUser() {
 							})}
 						</TableCell>
 						<TableCell>
-							<Popover>
-								<PopoverTrigger asChild>
-									<Badge
-										className="cursor-pointer"
-										variant={user.status ? "default" : "destructive"}
-									>
-										{user.status ? "Active" : "Inactive"}
-									</Badge>
-								</PopoverTrigger>
-								<PopoverContent className="w-52">
-									<Select>
-										<SelectTrigger className="w-full">
-											<SelectValue placeholder="Change Status" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem
-												value="Verified"
-												className="bg-primary focus:bg-primary2 focus:text-primary-foreground text-primary-foreground"
-											>
-												Active
-											</SelectItem>
-											<SelectItem
-												value="Not Verified"
-												className="bg-destructive focus:bg-destructive2 focus:text-destructive-foreground text-destructive-foreground"
-											>
-												Inactive
-											</SelectItem>
-										</SelectContent>
-									</Select>
-								</PopoverContent>
-							</Popover>
+							<PopoverBadge
+								condition={user.isActive}
+								title1="Active"
+								title2="Inactive"
+							/>
 						</TableCell>
 						<TableCell>
-							<Popover>
-								<PopoverTrigger asChild>
-									<Badge
-										className="cursor-pointer text-nowrap"
-										variant={user.isVerified ? "default" : "destructive"}
-									>
-										{user.isVerified ? "Verified" : "Not Verified"}
-									</Badge>
-								</PopoverTrigger>
-								<PopoverContent className="w-52">
-									<Select>
-										<SelectTrigger className="w-full">
-											<SelectValue placeholder="Change Status" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem
-												value="Verified"
-												className="bg-primary focus:bg-primary2 focus:text-primary-foreground text-primary-foreground"
-											>
-												Verifed
-											</SelectItem>
-											<SelectItem
-												value="Not Verified"
-												className="bg-destructive focus:bg-destructive2 focus:text-destructive-foreground text-destructive-foreground"
-											>
-												Not Verifed
-											</SelectItem>
-										</SelectContent>
-									</Select>
-								</PopoverContent>
-							</Popover>
+							<PopoverBadge
+								condition={user.verified}
+								title1="Verified"
+								title2="Not Verified"
+							/>
 						</TableCell>
 						<TableCell className="flex gap-3">
 							<Tooltip>
 								<TooltipTrigger asChild>
-									<Popover>
-										<PopoverTrigger asChild>
-											<Button size={"icon"}>
-												<UserSearch />
-											</Button>
-										</PopoverTrigger>
-										<PopoverContent className="w-[600px]">
-											<div className="grid gap-4">
-												<h2 className="text-lg text-primary2 font-medium">
-													Detail User
-												</h2>
-												<Table>
-													<TableBody>
-														<TableRow>
-															<TableCell className="font-medium">ID</TableCell>
-															<TableCell>{user.id}</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																Fullname
-															</TableCell>
-															<TableCell>{user.fullname}</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																Username
-															</TableCell>
-															<TableCell>{user.username}</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																Email
-															</TableCell>
-															<TableCell>{user.email}</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																Phone
-															</TableCell>
-															<TableCell>{user.phone}</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																Balance
-															</TableCell>
-															<TableCell>
-																{user.balance.toLocaleString("id-ID", {
-																	style: "currency",
-																	currency: "IDR",
-																})}
-															</TableCell>
-														</TableRow>
-														<TableRow>
-															<TableCell className="font-medium">
-																CreatedAt
-															</TableCell>
-															<TableCell>{user.createdAt}</TableCell>
-														</TableRow>
-													</TableBody>
-												</Table>
-											</div>
-										</PopoverContent>
-									</Popover>
+									<PopoverDetail user={user} />
 								</TooltipTrigger>
 								<TooltipContent>
 									<p>Detail</p>

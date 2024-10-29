@@ -11,8 +11,26 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import React from "react"
+import axios from "axios"
+import { ApiResponse, User } from "@/types/users.type"
 
-const UserPage = () => {
+const UserPage = async () => {
+	const response: ApiResponse = await axios
+		.get<ApiResponse>("http://localhost:4000/api/users", {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+		.then((response) => {
+			return response.data
+		})
+		.catch((error) => {
+			console.error(error)
+			return { data: [] }
+		})
+
+	const users: User[] = response.data
+
 	return (
 		<Card className="w-full bg-secondary min-h-56">
 			<CardHeader className="mb-3">
@@ -31,7 +49,7 @@ const UserPage = () => {
 					</div>
 				</div>
 				<div className="bg-background rounded-md overflow-hidden">
-					<TableUser />
+					<TableUser users={users} />
 				</div>
 			</CardContent>
 			<CardFooter>

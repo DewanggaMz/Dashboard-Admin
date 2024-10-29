@@ -8,32 +8,33 @@ import {
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { usePathname } from "next/navigation"
+import React from "react"
 
 const NavPathname = () => {
 	const pathname = usePathname()
-
-	const path = pathname.split("/").filter((item) => item !== "")
-	path.unshift("Home")
+	const path = ["Home", ...pathname.split("/").filter((item) => item !== "")]
 
 	return (
 		<Breadcrumb>
 			<BreadcrumbList className="text-primary-foreground">
-				{path.map((item, index) =>
-					path.length - 1 === index ? (
-						<BreadcrumbItem key={index}>
-							<BreadcrumbPage>{item}</BreadcrumbPage>
-						</BreadcrumbItem>
-					) : (
-						<>
-							<BreadcrumbItem key={index}>
-								<BreadcrumbLink href={item === "Home" ? "/" : `/${item}`}>
-									{item}
-								</BreadcrumbLink>
+				{path.map((item, index) => {
+					const isLast = index === path.length - 1
+					const href =
+						item === "Home" ? "/" : `/${path.slice(1, index + 1).join("/")}`
+
+					return (
+						<React.Fragment key={index}>
+							<BreadcrumbItem>
+								{isLast ? (
+									<BreadcrumbPage>{item}</BreadcrumbPage>
+								) : (
+									<BreadcrumbLink href={href}>{item}</BreadcrumbLink>
+								)}
 							</BreadcrumbItem>
-							<BreadcrumbSeparator />
-						</>
+							{!isLast && <BreadcrumbSeparator key={`separator-${index}`} />}
+						</React.Fragment>
 					)
-				)}
+				})}
 			</BreadcrumbList>
 		</Breadcrumb>
 	)
